@@ -10,7 +10,7 @@ export interface Item {
 }
 
 const ELEMENT_DATA: Item[] = [
-  { codigo: 1, descricao: 'Tapioca', quantidade: '1' },
+
   { codigo: 1, descricao: 'Arroz Branco', quantidade: '5kg' },
   { codigo: 2, descricao: 'Feijão Carioca', quantidade: '1kg' },
   { codigo: 3, descricao: 'Açúcar Refinado', quantidade: '1kg' },
@@ -117,10 +117,16 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.filter = '';
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+
+    this.dataSource.filterPredicate = (data: Item, filter: string) => {
+      return data.codigo.toString().includes(filter);
+    };
+
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
