@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -107,7 +107,7 @@ const ELEMENT_DATA: Item[] = [
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['codigo', 'descricao', 'quantidade'];
   dataSource = new MatTableDataSource<Item>(ELEMENT_DATA);
 
@@ -116,15 +116,28 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.dataSource.filter = '';
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+
+    // Usando setTimeout e verificando se sort não é nulo
+    setTimeout(() => {
+      if (this.dataSource.sort) {
+        this.dataSource.sort.sort({ id: 'codigo', start: 'desc', disableClear: true });
+      }
+    });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-
+    
     this.dataSource.filterPredicate = (data: Item, filter: string) => {
-      return data.codigo.toString().includes(filter);
+      const normalizedFilter = filter.trim().toLowerCase();
+      return data.codigo.toString().includes(normalizedFilter) || 
+             data.descricao.toLowerCase().includes(normalizedFilter) ||
+             data.quantidade.toLowerCase().includes(normalizedFilter);
     };
 
     this.dataSource.filter = filterValue.trim().toLowerCase();
