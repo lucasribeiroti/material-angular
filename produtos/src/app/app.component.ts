@@ -110,7 +110,7 @@ const ELEMENT_DATA: Item[] = [
 export class AppComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['codigo', 'descricao', 'quantidade'];
   dataSource = new MatTableDataSource<Item>(ELEMENT_DATA);
-  pageSize = 10; // Definindo o tamanho da página
+  pageSize = 10;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
