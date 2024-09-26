@@ -10,7 +10,7 @@ export interface Item {
 }
 
 const ELEMENT_DATA: Item[] = [
-  { codigo: 1, descricao: 'Produto A', quantidade: '1' },
+  { codigo: 1, descricao: 'Tapioca', quantidade: '1' },
   { codigo: 1, descricao: 'Arroz Branco', quantidade: '5kg' },
   { codigo: 2, descricao: 'Feijão Carioca', quantidade: '1kg' },
   { codigo: 3, descricao: 'Açúcar Refinado', quantidade: '1kg' },
