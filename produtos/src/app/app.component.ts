@@ -110,6 +110,7 @@ const ELEMENT_DATA: Item[] = [
 export class AppComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['codigo', 'descricao', 'quantidade'];
   dataSource = new MatTableDataSource<Item>(ELEMENT_DATA);
+  pageSize = 10; // Definindo o tamanho da página
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -122,7 +123,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
 
-    // Usando setTimeout e verificando se sort não é nulo
     setTimeout(() => {
       if (this.dataSource.sort) {
         this.dataSource.sort.sort({ id: 'codigo', start: 'desc', disableClear: true });
