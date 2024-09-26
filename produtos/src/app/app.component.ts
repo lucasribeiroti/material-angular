@@ -116,8 +116,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.filter = '';
+
   }
 
   ngAfterViewInit() {
@@ -128,6 +127,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.dataSource.sort.sort({ id: 'codigo', start: 'desc', disableClear: true });
       }
     });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.filter = '';
   }
 
   applyFilter(event: Event) {
